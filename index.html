@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Social Sphere</title>
+  <style>
+    /* Basic styling */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 0;
+    }
+    header, footer {
+      background-color: #2c3e50; /* Darker shade for better contrast */
+      color: #ffffff;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    main {
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .photo {
+      margin: 15px;
+      background: white;
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+    .like {
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 24px;
+    }
+    .liked {
+      color: red;
+    }
+    footer a {
+      color: #ffffff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+
+    /* Interactions styling */
+    .interactions {
+      margin-top: 8px;
+    }
+    .comment-form textarea {
+      width: 100%;
+      margin-top: 10px;
+    }
+    .comment-form label {
+      display: block;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Social Sphere</h1>
+  </header>
+  
+  <main>
+    <div class="photo">
+      <img src="https://via.placeholder.com/500" alt="Sample Photo">
+      <div class="interactions">
+        <button class="like" onclick="toggleLike(this)">
+          ❤️ <span class="like-count">0</span> Likes
+        </button>
+        <form class="comment-form" onsubmit="addComment(event, this)">
+          <label for="comment">Add a comment:</label>
+          <textarea id="comment" name="comment" placeholder="Add a comment..."></textarea>
+          <button type="submit">Post Comment</button>
+        </form>
+        <div class="comments"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2023 Social Sphere</p>
+    <a href="https://twitter.com">Twitter</a>
+    <a href="https://instagram.com">Instagram</a>
+  </footer>
+
+  <script>
+    function toggleLike(button) {
+      const likeCount = button.querySelector('.like-count');
+      button.classList.toggle('liked');
+      let count = parseInt(likeCount.textContent);
+      if (button.classList.contains('liked')) {
+        count++;
+      } else {
+        count--;
+      }
+      likeCount.textContent = count;
+    }
+
+    function addComment(event, form) {
+      event.preventDefault();
+      const textarea = form.querySelector('textarea');
+      if (textarea.value.trim() !== '') {
+        const commentsContainer = form.nextElementSibling;
+        const newComment = document.createElement('div');
+        newComment.textContent = textarea.value;
+        commentsContainer.appendChild(newComment);
+        textarea.value = ''; // Clear the textarea after adding the comment
+      }
+    }
+  </script>
+</body>
+</html>
